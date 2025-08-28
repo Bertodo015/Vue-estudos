@@ -5,6 +5,7 @@ import { ref, reactive } from 'vue';
   const URL = "http://localhost:3000";
   const nome = ref("");
 
+  //reactive pois tem vetor no ref
   const state = reactive({
     produtos: [],
     msgErroAPI: ""
@@ -14,7 +15,7 @@ import { ref, reactive } from 'vue';
   axios.get(`${URL}/produtos`)
   .then((resposta) => {
     state.msgErroAPI = ""
-    state.produtos = resposta.data
+    state.produtos = resposta.data  //padrão "resposta.data"
   })  //dois meios de criar uma função (acima e abaixo)
   .catch(function (erro) {
     state.msgErroAPI = "Erro ao listar produtos da API"
@@ -36,7 +37,7 @@ import { ref, reactive } from 'vue';
     </li>
   </ul>
 
-  <p>{{ state.msgErroAPI }}</p>
+  <p v-if="state.msgErroAPI > 0">{{ state.msgErroAPI }}</p>
 </template>
 
 <style scoped>
